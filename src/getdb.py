@@ -14,7 +14,7 @@ databases =[
     "service_sourcing",
     "service_user",
     "supplier_center",
-            ]
+]
 for database in databases:
     print("------------"+database+"--------------------------")
     conn_obj = pymysql.connect(
