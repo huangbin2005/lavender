@@ -1,4 +1,5 @@
 # coding=utf-8
+__author__ = 'laohuang'
 import sqlparse
 import numpy as np
 import pandas as pd
@@ -6,6 +7,8 @@ import jieba
 
 
 import pymysql
+import pickle
+
 databases =[
     "item_center",
     "price_center",
@@ -15,6 +18,26 @@ databases =[
     "service_user",
     "supplier_center",
 ]
+
+class Table :
+    databases = ""
+    tablseName = ''
+    fields=[]
+    def __init__(self, databases = '', tablseName="",field=[]):
+        # 下面为Person对象增加2个实例变量
+        self.databases = databases
+        self.tablseName = tablseName
+        self.fields = field
+    def show(self):
+        print(self.databases,self.tablseName, len(self.fields))
+
+
+
+
+# 可能有问题的字段有：
+# shop_id  、 sku_id   、  item_id、item_type
+tablse = []
+
 for database in databases:
     print("------------"+database+"--------------------------")
     conn_obj = pymysql.connect(
@@ -49,11 +72,21 @@ for database in databases:
             print("********************************")
             tables = cursor2.execute('DESCRIBE '+ table[0] )
             result2 = cursor2.fetchall()
+            fields = []
             for row2 in result2:
-                print(row2)
+                fields.append(row2)
+                # print(row2)
+            tablse.append( Table(database,table,fields))
             print("********************************")
+            print()
             #查询相关表的字段类型与长度
     print("--------------------------------------")
 
+# 此处有待将查询结果做持久化的处理
+# for tb in tablse:
+#     print(tb.databases,tb.tablseName, len(tb.fields))
 
-
+fw = open('d://workspaces//python-project//tables.pkl','wb')
+# Pickle the list using the highest protocol available.
+pickle.dump(tablse, fw, pickle.HIGHEST_PROTOCOL)
+fw.close()
