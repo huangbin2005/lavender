@@ -1,10 +1,5 @@
 # coding=utf-8
 __author__ = 'laohuang'
-import sqlparse
-import numpy as np
-import pandas as pd
-import jieba
-
 
 import pymysql
 import pickle
@@ -82,7 +77,7 @@ for database in databases:
             #查询相关表的字段类型与长度
     print("--------------------------------------")
 
-# 此处有待将查询结果做持久化的处理
+# 此处将查询结果做持久化的处理
 # for tb in tablse:
 #     print(tb.databases,tb.tablseName, len(tb.fields))
 
