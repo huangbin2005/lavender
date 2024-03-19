@@ -70,3 +70,10 @@ for fd in fieldDetails:
     print(fd.databases,fd.tablseName,fd.fieldName,fd.type)
 
 
+
+
+
+
+
+
+
