@@ -15,6 +15,50 @@ Lavender thrives in poor soil。
 1. 第一步先开展数据库中的表、字段的分析
 2. 读取多个库用相同名称字段名开展不同表的比较，并对比相关类型与长度
 3. 
+我真是个鱼唇的人。。。
+基于 select * from information_schema.COLUMNS 就可以开展相关工作了。
+
+我来打脸自己这个鱼唇的人吧
+select
+tbs.TABLE_SCHEMA,
+tbs.TABLE_NAME,
+tbs.COLUMN_NAME,
+tbs.DATA_TYPE,
+tbs.CHARACTER_SET_NAME,
+tbs.COLLATION_NAME,
+tbs.COLUMN_TYPE,
+tbs.COLUMN_COMMENT,
+fdsid.cnt
+from
+information_schema.COLUMNS tbs ,
+(
+SELECT column_name,	count(1) cnt
+FROM
+(
+select DISTINCT column_name,data_type
+from
+information_schema.COLUMNS
+)tbl
+group by
+column_name
+HAVING
+cnt>1
+) fdsid
+where
+tbs.column_name = fdsid.column_name
+order by
+column_name,	data_type ,	TABLE_SCHEMA ,	TABLE_NAME
+;
+
+
+select *
+from
+information_schema.COLUMNS;
+
+
+
+
+
 
 第二步工作思路
 1. 第二步结合数据库和程序源代码分析相关数据库表字段的处理
