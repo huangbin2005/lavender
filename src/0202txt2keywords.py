@@ -1,10 +1,12 @@
 # coding=utf-8
+
 __author__ = 'laohuang'
 
 from paddleocr import PaddleOCR
 import pdf2image
 import os
-ocr = PaddleOCR(use_angle_cls=True, lang='ch')  # 中文设置lang参数为'ch'
+
+
 
 # 将PDF转换为图片
 def convert_pdf_to_images(pdf_path, output_folder):
@@ -15,7 +17,7 @@ def convert_pdf_to_images(pdf_path, output_folder):
 
 # 从图片中提取文本
 def extract_text_from_images(image_folder, output_text_file):
-    
+    ocr = PaddleOCR(use_angle_cls=True, lang='ch')  # 中文设置lang参数为'ch'
     with open(output_text_file, 'w', encoding='utf-8') as f:
         for image_file in os.listdir(image_folder):
             if image_file.endswith('.png'):
